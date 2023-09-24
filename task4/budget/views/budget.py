@@ -31,7 +31,7 @@ class BudgetViewSet(viewsets.ModelViewSet):
 
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    def get_serializer_class(self):
+    def get_serializer_class(self) -> None:
         if self.action == "create":
             return CreateBudgetSerializer
         return self.serializer_class

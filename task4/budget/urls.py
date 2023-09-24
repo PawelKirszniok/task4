@@ -1,7 +1,16 @@
-from budget.views import BudgetViewSet
+from budget.views import BudgetViewSet, ExpenseViewSet
+from django.urls import include, path
 from rest_framework.routers import DefaultRouter
+from rest_framework_nested import routers
 
 router = DefaultRouter()
 router.register('', BudgetViewSet)
 
-urlpatterns = router.urls
+nested_router = routers.NestedDefaultRouter(router, '', lookup='budget')
+nested_router.register('expenses', ExpenseViewSet, basename='budget-expenses')
+
+
+urlpatterns = [
+    path(r'', include(router.urls)),
+    path(r'', include(nested_router.urls)),
+]
