@@ -22,3 +22,6 @@ class CreateBudgetSerializer(serializers.ModelSerializer):
         model = Budget
         fields = ["pk", "name"]
 
+
+class ShareBudgetSerializer(serializers.Serializer):
+    share_with = serializers.ListField(child=serializers.IntegerField())

@@ -84,7 +84,7 @@ class BudgetTestCase(TestCase):
         budget.save()
 
         response = self.client.delete(
-            f"/budget/{budget.pk}/",headers={"Authorization": f"Bearer {self.token}"}
+            f"/budget/{budget.pk}/", headers={"Authorization": f"Bearer {self.token}"}
         )
 
         self.assertEqual(response.status_code, 204)
@@ -92,3 +92,32 @@ class BudgetTestCase(TestCase):
         with self.assertRaises(Budget.DoesNotExist):
             Budget.objects.get(pk=budget.pk)
 
+    def test_share_budget(self):
+        user = User(username="test_other_username", first_name="Susan", last_name="Potter")
+        user.save()
+        token = AccessToken.for_user(user)
+        budget = Budget.objects.create(name="test_budget_get", owner=user)
+        budget.save()
+
+        #  self.user is not authorized
+        response = self.client.get(
+            f"/budget/{budget.pk}/", headers={"Authorization": f"Bearer {self.token}"}
+        )
+        self.assertEqual(response.status_code, 404)
+
+        response = self.client.post(
+            f"/budget/{budget.pk}/share/",
+            data={"share_with": [self.user.pk]},
+            headers={"Authorization": f"Bearer {token}"}
+        )
+
+        self.assertEqual(response.status_code, 204)
+
+        #  self.user is authorized
+        response = self.client.get(
+            f"/budget/{budget.pk}/", headers={"Authorization": f"Bearer {self.token}"}
+        )
+        self.assertEqual(response.status_code, 200)
+
+
+        self.assertEqual(len(response.json()["viewers"]), 1)
