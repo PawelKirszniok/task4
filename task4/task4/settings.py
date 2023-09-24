@@ -25,12 +25,13 @@ SECRET_KEY = "django-insecure-!kymcqft^enyj%o*=7z&1f*(!k7s9eq^nj#$n%rajpdggd^7j9
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
 
 INSTALLED_APPS = [
+    "rest_framework",
     "budget",
     "django.contrib.admin",
     "django.contrib.auth",
@@ -131,3 +132,9 @@ STATIC_URL = "static/"
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
+
+REST_FRAMEWORK = {
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
+    )
+}
