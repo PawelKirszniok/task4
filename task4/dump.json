@@ -1,0 +1,271 @@
+[
+{
+  "model": "budget.expense",
+  "pk": 1,
+  "fields": {
+    "name": "Defence agains the dark arts",
+    "amount": "50.00",
+    "category": "books",
+    "budget": 2
+  }
+},
+{
+  "model": "budget.expense",
+  "pk": 2,
+  "fields": {
+    "name": "Herbalism",
+    "amount": "30.00",
+    "category": "books",
+    "budget": 2
+  }
+},
+{
+  "model": "budget.expense",
+  "pk": 3,
+  "fields": {
+    "name": "Nimbus 2000",
+    "amount": "200.00",
+    "category": "quidditch",
+    "budget": 2
+  }
+},
+{
+  "model": "budget.expense",
+  "pk": 4,
+  "fields": {
+    "name": "Uniform",
+    "amount": "10.00",
+    "category": "quidditch",
+    "budget": 2
+  }
+},
+{
+  "model": "budget.expense",
+  "pk": 5,
+  "fields": {
+    "name": "chockolate frogs",
+    "amount": "20.00",
+    "category": "groceries",
+    "budget": 1
+  }
+},
+{
+  "model": "budget.expense",
+  "pk": 6,
+  "fields": {
+    "name": "Bertie Bott beans",
+    "amount": "40.00",
+    "category": "groceries",
+    "budget": 1
+  }
+},
+{
+  "model": "budget.expense",
+  "pk": 7,
+  "fields": {
+    "name": "Owl Food",
+    "amount": "30.00",
+    "category": "hedwig",
+    "budget": 1
+  }
+},
+{
+  "model": "budget.expense",
+  "pk": 8,
+  "fields": {
+    "name": "local market shopping",
+    "amount": "300.00",
+    "category": "groceries",
+    "budget": 3
+  }
+},
+{
+  "model": "budget.expense",
+  "pk": 9,
+  "fields": {
+    "name": "robe patching",
+    "amount": "200.00",
+    "category": "repairs",
+    "budget": 3
+  }
+},
+{
+  "model": "budget.expense",
+  "pk": 10,
+  "fields": {
+    "name": "broom repairs",
+    "amount": "60.00",
+    "category": "repairs",
+    "budget": 3
+  }
+},
+{
+  "model": "budget.expense",
+  "pk": 11,
+  "fields": {
+    "name": "gigner beer",
+    "amount": "20.00",
+    "category": "hogsmead",
+    "budget": 4
+  }
+},
+{
+  "model": "budget.income",
+  "pk": 1,
+  "fields": {
+    "name": "bank withdrawal",
+    "amount": "1000.00",
+    "category": "bank",
+    "budget": 2
+  }
+},
+{
+  "model": "budget.income",
+  "pk": 2,
+  "fields": {
+    "name": "bank withdrawal",
+    "amount": "1000.00",
+    "category": "bank",
+    "budget": 1
+  }
+},
+{
+  "model": "budget.income",
+  "pk": 3,
+  "fields": {
+    "name": "Arthur",
+    "amount": "1500.00",
+    "category": "wages",
+    "budget": 3
+  }
+},
+{
+  "model": "budget.income",
+  "pk": 4,
+  "fields": {
+    "name": "Bill",
+    "amount": "300.00",
+    "category": "wages",
+    "budget": 3
+  }
+},
+{
+  "model": "budget.income",
+  "pk": 5,
+  "fields": {
+    "name": "dad",
+    "amount": "50.00",
+    "category": "pocket money",
+    "budget": 4
+  }
+},
+{
+  "model": "budget.income",
+  "pk": 6,
+  "fields": {
+    "name": "mom",
+    "amount": "20.00",
+    "category": "pocket money",
+    "budget": 4
+  }
+},
+{
+  "model": "auth.user",
+  "fields": {
+    "password": "pbkdf2_sha256$600000$G1GgOzWc6s2Fh54Q5CONMM$lWqGTRS2IQ35qFNUlnTQlNb24n65OgeCjdfj8M6m1dg=",
+    "last_login": null,
+    "is_superuser": true,
+    "username": "admin",
+    "first_name": "",
+    "last_name": "",
+    "email": "admin@admin.com",
+    "is_staff": true,
+    "is_active": true,
+    "date_joined": "2023-09-25T11:23:51.304Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "fields": {
+    "password": "pbkdf2_sha256$600000$WZ4F8nzTnoM1FVDvTFGRc6$1p9TW0v5ae8m4Ckh8S10RTl6rqZR5Z15cGgK61PqSWM=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "boywholived",
+    "first_name": "Harry",
+    "last_name": "Potter",
+    "email": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2023-09-25T11:24:12.038Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "auth.user",
+  "fields": {
+    "password": "pbkdf2_sha256$600000$rL35xGtqfzW8byHq92L5xa$ZUhAwk0kwJRg1HTEZCLkb7fn2Pgp+Oenn0tWbM+/g50=",
+    "last_login": null,
+    "is_superuser": false,
+    "username": "readheadfriend",
+    "first_name": "Ron",
+    "last_name": "Wesley",
+    "email": "",
+    "is_staff": false,
+    "is_active": true,
+    "date_joined": "2023-09-25T11:31:10.676Z",
+    "groups": [],
+    "user_permissions": []
+  }
+},
+{
+  "model": "budget.budget",
+  "pk": 1,
+  "fields": {
+    "name": "personal",
+    "owner": [
+      "boywholived"
+    ],
+    "viewers": []
+  }
+},
+{
+  "model": "budget.budget",
+  "pk": 2,
+  "fields": {
+    "name": "school",
+    "owner": [
+      "boywholived"
+    ],
+    "viewers": []
+  }
+},
+{
+  "model": "budget.budget",
+  "pk": 3,
+  "fields": {
+    "name": "wesleys",
+    "owner": [
+      "readheadfriend"
+    ],
+    "viewers": []
+  }
+},
+{
+  "model": "budget.budget",
+  "pk": 4,
+  "fields": {
+    "name": "personal",
+    "owner": [
+      "readheadfriend"
+    ],
+    "viewers": [
+      [
+        "boywholived"
+      ]
+    ]
+  }
+}
+]
