@@ -39,8 +39,8 @@ class BudgetTestCase(TestCase):
         )
 
         expected = {
-            'expenses': [],
-            'incomes': [],
+            'expenses': {},
+            'incomes': {},
             'name': 'test_budget_get',
             'owner': {'first_name': 'John',
                       'is_active': True,
@@ -65,8 +65,8 @@ class BudgetTestCase(TestCase):
         )
 
         expected = {
-            'expenses': [],
-            'incomes': [],
+            'expenses': {},
+            'incomes': {},
             'name': 'updated_name',
             'owner': {'first_name': 'John',
                       'is_active': True,
@@ -142,8 +142,8 @@ class BudgetTestCase(TestCase):
             "previous": None,
             "results": [
                 {
-                    'expenses': [],
-                    'incomes': [],
+                    'expenses': {},
+                    'incomes': {},
                     'name': 'cars',
                     'owner': {'first_name': 'Stephen',
                               'is_active': True,
@@ -154,8 +154,8 @@ class BudgetTestCase(TestCase):
                     'viewers': []
                 },
                 {
-                    'expenses': [],
-                    'incomes': [],
+                    'expenses': {},
+                    'incomes': {},
                     'name': 'groceries',
                     'owner': {'first_name': 'Stephen',
                               'is_active': True,
@@ -203,8 +203,8 @@ class BudgetTestCase(TestCase):
             "previous": None,
             "results": [
                 {
-                    'expenses': [],
-                    'incomes': [],
+                    'expenses': {},
+                    'incomes': {},
                     'name': 'cars',
                     'owner': {'first_name': 'Stephen',
                               'is_active': True,
