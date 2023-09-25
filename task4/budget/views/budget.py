@@ -1,5 +1,6 @@
 from django.contrib.auth.models import User
 from django.db.models import Q, QuerySet
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import status, viewsets
 from budget.models import Budget
 from budget.serializers.budget import BudgetSerializer, CreateBudgetSerializer, ShareBudgetSerializer
@@ -12,6 +13,8 @@ class BudgetViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
     serializer_class = BudgetSerializer
     queryset = Budget.objects.all()
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ['name', 'owner', 'viewers']
 
     def get_queryset(self) -> QuerySet:
         if self.request.method in SAFE_METHODS:
