@@ -8,16 +8,13 @@ from rest_framework_simplejwt.tokens import AccessToken
 
 
 class UserTestCase(TestCase):
-
     def test_create_user(self):
         data = {
             "username": "test_user",
             "password": "test_password",
-            "email": "test@test.com"
+            "email": "test@test.com",
         }
-        response = self.client.post(
-            "/user/", data=data
-        )
+        response = self.client.post("/user/", data=data)
 
         self.assertEqual(response.status_code, 201)
 
@@ -41,19 +38,16 @@ class UserTestCase(TestCase):
                     "username": "test1",
                     "first_name": "",
                     "last_name": "",
-                    "is_active": True
+                    "is_active": True,
                 },
-
                 {
                     "pk": user2.pk,
                     "username": "test2",
                     "first_name": "",
                     "last_name": "",
-                    "is_active": True
-                }
-            ]
+                    "is_active": True,
+                },
+            ],
         }
 
         self.assertEqual(users, expected)
-
-

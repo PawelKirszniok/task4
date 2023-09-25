@@ -25,7 +25,9 @@ class BudgetSerializer(serializers.ModelSerializer):
         incomes = Income.objects.filter(budget=obj)
         return self._group_by_category(incomes, IncomeSerializer)
 
-    def _group_by_category(self, line_items: list, item_serializer: type[serializers.Serializer]) -> dict:
+    def _group_by_category(
+        self, line_items: list, item_serializer: type[serializers.Serializer]
+    ) -> dict:
         grouped = defaultdict(list)
         for item in line_items:
             grouped[item.category].append(item_serializer(item).data)
@@ -33,7 +35,6 @@ class BudgetSerializer(serializers.ModelSerializer):
 
 
 class CreateBudgetSerializer(serializers.ModelSerializer):
-
     class Meta:
         model = Budget
         fields = ["pk", "name"]

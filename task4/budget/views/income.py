@@ -7,7 +7,12 @@ from budget.models import Budget, Income
 from rest_framework.response import Response
 
 
-class IncomeViewSet(viewsets.GenericViewSet, mixins.CreateModelMixin, mixins.DestroyModelMixin, mixins.UpdateModelMixin):
+class IncomeViewSet(
+    viewsets.GenericViewSet,
+    mixins.CreateModelMixin,
+    mixins.DestroyModelMixin,
+    mixins.UpdateModelMixin,
+):
     permission_classes = [IsAuthenticated]
     serializer_class = IncomeSerializer
     queryset = Income.objects.all()
@@ -21,5 +26,6 @@ class IncomeViewSet(viewsets.GenericViewSet, mixins.CreateModelMixin, mixins.Des
         serializer.save(budget=self.request.budget)
 
     def get_queryset(self) -> QuerySet:
-        return self.queryset.filter(budget=self.kwargs["budget_pk"], budget__owner=self.request.user)
-
+        return self.queryset.filter(
+            budget=self.kwargs["budget_pk"], budget__owner=self.request.user
+        )
