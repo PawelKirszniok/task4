@@ -8,9 +8,11 @@ from rest_framework.permissions import SAFE_METHODS, IsAuthenticated
 from rest_framework.response import Response
 
 from budget.models import Budget
-from budget.serializers.budget import (BudgetSerializer,
-                                       CreateBudgetSerializer,
-                                       ShareBudgetSerializer)
+from budget.serializers.budget import (
+    BudgetSerializer,
+    CreateBudgetSerializer,
+    ShareBudgetSerializer,
+)
 
 
 class BudgetViewSet(viewsets.ModelViewSet):
