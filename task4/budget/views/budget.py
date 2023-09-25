@@ -5,6 +5,7 @@ from rest_framework import status, viewsets
 from budget.models import Budget
 from budget.serializers.budget import BudgetSerializer, CreateBudgetSerializer, ShareBudgetSerializer
 from rest_framework.decorators import action
+from rest_framework.filters import OrderingFilter
 from rest_framework.permissions import IsAuthenticated, SAFE_METHODS
 from rest_framework.response import Response
 
@@ -13,7 +14,7 @@ class BudgetViewSet(viewsets.ModelViewSet):
     permission_classes = [IsAuthenticated]
     serializer_class = BudgetSerializer
     queryset = Budget.objects.all()
-    filter_backends = [DjangoFilterBackend]
+    filter_backends = [DjangoFilterBackend, OrderingFilter]
     filterset_fields = ['name', 'owner', 'viewers']
 
     def get_queryset(self) -> QuerySet:

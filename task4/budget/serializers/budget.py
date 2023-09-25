@@ -28,11 +28,8 @@ class BudgetSerializer(serializers.ModelSerializer):
     def _group_by_category(self, line_items: list, item_serializer: type[serializers.Serializer]) -> dict:
         grouped = defaultdict(list)
         for item in line_items:
-            grouped[item.category] = item_serializer(item).data
+            grouped[item.category].append(item_serializer(item).data)
         return grouped
-
-
-
 
 
 class CreateBudgetSerializer(serializers.ModelSerializer):

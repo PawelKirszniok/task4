@@ -1,5 +1,6 @@
+from decimal import Decimal
 from unittest.mock import ANY
-from budget.models import Budget
+from budget.models import Budget, Expense
 from django.contrib.auth.models import User
 from django.test import TestCase
 from rest_framework.test import APIClient
@@ -120,7 +121,6 @@ class BudgetTestCase(TestCase):
         )
         self.assertEqual(response.status_code, 200)
 
-
         self.assertEqual(len(response.json()["viewers"]), 1)
 
     def test_list_endpoint(self):
@@ -134,7 +134,7 @@ class BudgetTestCase(TestCase):
         budget2 = Budget.objects.create(name="groceries", owner=user)
         budget2.save()
 
-        response = self.client.get(f"/budget/", headers={"Authorization": f"Bearer {token}"})
+        response = self.client.get(f"/budget/?ordering=name", headers={"Authorization": f"Bearer {token}"})
 
         expected = {
             "count": 2,
@@ -219,3 +219,55 @@ class BudgetTestCase(TestCase):
 
         self.assertEqual(response.status_code, 200)
         self.assertDictEqual(response.json(), expected)
+
+    def test_group_line_items(self):
+        budget = Budget.objects.create(name="test_grouped_budget", owner=self.user)
+        budget.save()
+        expense = Expense.objects.create(budget=budget, name="gas", amount=Decimal("99.5"), category="car")
+        expense.save()
+        expense = Expense.objects.create(budget=budget, name="repair", amount=Decimal("499.5"), category="car")
+        expense.save()
+        expense = Expense.objects.create(budget=budget, name="groceries", amount=Decimal("50.40"), category="food")
+        expense.save()
+
+        response = self.client.get(
+            f"/budget/{budget.pk}/", headers={"Authorization": f"Bearer {self.token}"}
+        )
+
+        expected = {
+            'expenses': {
+                'car': [
+                    {
+                        'amount': '99.50',
+                        'category': 'car',
+                        'name': 'gas',
+                        'pk': 1
+                    },
+                    {
+                        'amount': '499.50',
+                        'category': 'car',
+                        'name': 'repair',
+                        'pk': 2
+                    }
+                ],
+                'food': [
+                    {
+                        'amount': '50.40',
+                        'category': 'food',
+                        'name': 'groceries',
+                        'pk': 3
+                     }
+                ]
+            },
+            'incomes': {},
+            'name': 'test_grouped_budget',
+            'owner': {'first_name': 'John',
+                      'is_active': True,
+                      'last_name': 'Smith',
+                      'pk': self.user.pk,
+                      'username': 'test_username'},
+            'pk': budget.pk,
+            'viewers': []
+        }
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json(), expected)
