@@ -7,6 +7,7 @@ from rest_framework_simplejwt.tokens import AccessToken
 
 
 class BudgetTestCase(TestCase):
+    maxDiff = None
 
     @classmethod
     def setUpClass(cls):
@@ -121,3 +122,100 @@ class BudgetTestCase(TestCase):
 
 
         self.assertEqual(len(response.json()["viewers"]), 1)
+
+    def test_list_endpoint(self):
+        user = User(username="stephens", first_name="Stephen", last_name="Smith")
+        user.save()
+        token = AccessToken.for_user(user)
+
+        budget1 = Budget.objects.create(name="cars", owner=user)
+        budget1.save()
+
+        budget2 = Budget.objects.create(name="groceries", owner=user)
+        budget2.save()
+
+        response = self.client.get(f"/budget/", headers={"Authorization": f"Bearer {token}"})
+
+        expected = {
+            "count": 2,
+            "next": None,
+            "previous": None,
+            "results": [
+                {
+                    'expenses': [],
+                    'incomes': [],
+                    'name': 'cars',
+                    'owner': {'first_name': 'Stephen',
+                              'is_active': True,
+                              'last_name': 'Smith',
+                              'pk': user.pk,
+                              'username': 'stephens'},
+                    'pk': budget1.pk,
+                    'viewers': []
+                },
+                {
+                    'expenses': [],
+                    'incomes': [],
+                    'name': 'groceries',
+                    'owner': {'first_name': 'Stephen',
+                              'is_active': True,
+                              'last_name': 'Smith',
+                              'pk': user.pk,
+                              'username': 'stephens'},
+                    'pk': budget2.pk,
+                    'viewers': []
+                }
+            ]
+        }
+
+        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.json(), expected)
+
+        #  another user does not see the results
+        response = self.client.get(f"/budget/", headers={"Authorization": f"Bearer {self.token}"})
+
+        expected = {
+            "count": 0,
+            "next": None,
+            "previous": None,
+            "results": []
+        }
+
+        self.assertEqual(response.status_code, 200)
+        self.assertDictEqual(response.json(), expected)
+
+    def test_filter_list_endpoint(self):
+        user = User(username="stephens", first_name="Stephen", last_name="Smith")
+        user.save()
+        token = AccessToken.for_user(user)
+
+        budget1 = Budget.objects.create(name="cars", owner=user)
+        budget1.save()
+
+        budget2 = Budget.objects.create(name="groceries", owner=user)
+        budget2.save()
+
+        response = self.client.get(f"/budget/?name=cars", headers={"Authorization": f"Bearer {token}"})
+
+        expected = {
+            "count": 1,
+            "next": None,
+            "previous": None,
+            "results": [
+                {
+                    'expenses': [],
+                    'incomes': [],
+                    'name': 'cars',
+                    'owner': {'first_name': 'Stephen',
+                              'is_active': True,
+                              'last_name': 'Smith',
+                              'pk': user.pk,
+                              'username': 'stephens'},
+                    'pk': budget1.pk,
+                    'viewers': []
+                },
+            ]
+        }
+
+        self.assertEqual(response.status_code, 200)
+        self.assertDictEqual(response.json(), expected)
