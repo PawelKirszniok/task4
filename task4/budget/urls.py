@@ -1,7 +1,8 @@
-from budget.views import BudgetViewSet, ExpenseViewSet, IncomeViewSet
 from django.urls import include, path
 from rest_framework.routers import DefaultRouter
 from rest_framework_nested import routers
+
+from budget.views import BudgetViewSet, ExpenseViewSet, IncomeViewSet
 
 router = DefaultRouter()
 router.register("", BudgetViewSet)

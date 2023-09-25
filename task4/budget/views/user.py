@@ -1,7 +1,8 @@
 from django.contrib.auth.models import User
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import mixins, viewsets
-from budget.serializers.user import UserSerializer, CreateUserSerializer
+
+from budget.serializers.user import CreateUserSerializer, UserSerializer
 
 
 class UserViewSet(

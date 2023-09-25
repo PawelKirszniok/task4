@@ -1,10 +1,12 @@
 from decimal import Decimal
 from unittest.mock import ANY
-from budget.models import Budget, Income
+
 from django.contrib.auth.models import User
 from django.test import TestCase
 from rest_framework.test import APIClient
 from rest_framework_simplejwt.tokens import AccessToken
+
+from budget.models import Budget, Income
 
 
 class IncomeTestCase(TestCase):

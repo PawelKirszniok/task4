@@ -1,10 +1,11 @@
 from collections import defaultdict
 
+from rest_framework import serializers
+
 from budget.models import Budget, Expense, Income
 from budget.serializers.expense import ExpenseSerializer
 from budget.serializers.income import IncomeSerializer
 from budget.serializers.user import UserSerializer
-from rest_framework import serializers
 
 
 class BudgetSerializer(serializers.ModelSerializer):
