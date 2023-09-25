@@ -2,12 +2,15 @@ from django.contrib.auth.models import User
 from django.db.models import Q, QuerySet
 from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import status, viewsets
-from budget.models import Budget
-from budget.serializers.budget import BudgetSerializer, CreateBudgetSerializer, ShareBudgetSerializer
 from rest_framework.decorators import action
 from rest_framework.filters import OrderingFilter
-from rest_framework.permissions import IsAuthenticated, SAFE_METHODS
+from rest_framework.permissions import SAFE_METHODS, IsAuthenticated
 from rest_framework.response import Response
+
+from budget.models import Budget
+from budget.serializers.budget import (BudgetSerializer,
+                                       CreateBudgetSerializer,
+                                       ShareBudgetSerializer)
 
 
 class BudgetViewSet(viewsets.ModelViewSet):
@@ -15,11 +18,13 @@ class BudgetViewSet(viewsets.ModelViewSet):
     serializer_class = BudgetSerializer
     queryset = Budget.objects.all()
     filter_backends = [DjangoFilterBackend, OrderingFilter]
-    filterset_fields = ['name', 'owner', 'viewers']
+    filterset_fields = ["name", "owner", "viewers"]
 
     def get_queryset(self) -> QuerySet:
         if self.request.method in SAFE_METHODS:
-            return Budget.objects.filter(Q(owner=self.request.user) | Q(viewers__in=[self.request.user]))
+            return Budget.objects.filter(
+                Q(owner=self.request.user) | Q(viewers__in=[self.request.user])
+            )
         return Budget.objects.filter(owner=self.request.user)
 
     @action(detail=True, methods=["post"])

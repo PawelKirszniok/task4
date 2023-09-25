@@ -2,12 +2,18 @@ from django.db.models import QuerySet
 from django.shortcuts import get_object_or_404
 from rest_framework import mixins, viewsets
 from rest_framework.permissions import IsAuthenticated
-from budget.serializers.income import IncomeSerializer
-from budget.models import Budget, Income
 from rest_framework.response import Response
 
+from budget.models import Budget, Income
+from budget.serializers.income import IncomeSerializer
 
-class IncomeViewSet(viewsets.GenericViewSet, mixins.CreateModelMixin, mixins.DestroyModelMixin, mixins.UpdateModelMixin):
+
+class IncomeViewSet(
+    viewsets.GenericViewSet,
+    mixins.CreateModelMixin,
+    mixins.DestroyModelMixin,
+    mixins.UpdateModelMixin,
+):
     permission_classes = [IsAuthenticated]
     serializer_class = IncomeSerializer
     queryset = Income.objects.all()
@@ -21,5 +27,6 @@ class IncomeViewSet(viewsets.GenericViewSet, mixins.CreateModelMixin, mixins.Des
         serializer.save(budget=self.request.budget)
 
     def get_queryset(self) -> QuerySet:
-        return self.queryset.filter(budget=self.kwargs["budget_pk"], budget__owner=self.request.user)
-
+        return self.queryset.filter(
+            budget=self.kwargs["budget_pk"], budget__owner=self.request.user
+        )
